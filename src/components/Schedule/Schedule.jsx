@@ -1,12 +1,7 @@
-import React, { Fragment, PureComponent } from 'react';
-import { connect } from 'react-redux';
-import { addDay as addDayServer,
-    getDays as getDaysServer
-} from '../../models/AppModel.js';
-import {
-    addDayAction,
-    downloadDaysAction
-} from '../../store/actions';
+import React, {Fragment, PureComponent} from 'react';
+import {connect} from 'react-redux';
+import {addDay as addDayServer, getDays as getDaysServer} from '../../models/AppModel.js';
+import {addDayAction, downloadDaysAction} from '../../store/actions';
 import Day from '../Day/Day';
 import './Schedule.css';
 
@@ -35,13 +30,13 @@ class Schedule extends PureComponent {
         this.props.downloadDaysDispatch(days);
     }
 
-    showInput = () => this.setState({ isInputShown: true });
+    showInput = () => this.setState({isInputShown: true});
 
-    onDateInputChange = ({ target: { value } }) => this.setState({
+    onDateInputChange = ({target: {value}}) => this.setState({
         dateInputValue: value
     });
 
-    onChangeInputChange = ({ target: { value } }) => this.setState({
+    onChangeInputChange = ({target: {value}}) => this.setState({
         changeInputValue: value
     });
 
@@ -52,12 +47,10 @@ class Schedule extends PureComponent {
             if (this.state.changeInputValue === 'day') {
                 bound = [8, 14];
                 change = 'Первая смена';
-            }
-            else if (this.state.changeInputValue === 'evening') {
+            } else if (this.state.changeInputValue === 'evening') {
                 bound = [14, 20];
                 change = 'Вторая смена';
-            }
-            else {
+            } else {
                 bound = [8, 14];
                 change = 'Первая смена';
             }
@@ -71,11 +64,11 @@ class Schedule extends PureComponent {
             });
             console.log(info);
 
-            this.props.addDayDispatch({ 
-                dayDate: this.state.dateInputValue, 
+            this.props.addDayDispatch({
+                dayDate: this.state.dateInputValue,
                 dayChange: change,
                 notes: [...tmpArr]
-             });
+            });
         }
 
         this.setState({
@@ -92,14 +85,14 @@ class Schedule extends PureComponent {
                 dateInputValue: '',
                 changeInputValue: 'day'
             });
-            
+
             return;
         }
     };
 
     render() {
-        const { isInputShown, dateInputValue, changeInputValue } = this.state;
-        const { days } = this.props;
+        const {isInputShown, dateInputValue, changeInputValue} = this.state;
+        const {days} = this.props;
 
         return (
             <Fragment>
@@ -120,20 +113,20 @@ class Schedule extends PureComponent {
                     <main id="main-content-container">
                         <div id="main-content">
                             {days.map((day, index) => (
-                                <Day 
+                                <Day
                                     dayDate={day.dayDate}
                                     dayChange={day.dayChange}
                                     dayId={index}
                                     notes={day.notes}
                                     key={`list${index}`}
                                 />
-                            ))}    
+                            ))}
                             <div className="element-container">
-                                <div className="card card-add-list-container">         
+                                <div className="card card-add-list-container">
                                     {!isInputShown && (
                                         <span id="add-list-button"
-                                            className="card-add-list-button" 
-                                            onClick={this.showInput}
+                                              className="card-add-list-button"
+                                              onClick={this.showInput}
                                         >
                                             Добавить день...
                                         </span>
@@ -149,7 +142,7 @@ class Schedule extends PureComponent {
                                                 onChange={this.onDateInputChange}
                                                 onKeyDown={this.onKeyDown}
                                             />
-                                            
+
                                             <label htmlFor="add-list-input-change">Выберите смену: </label>
                                             <select
                                                 id="add-list-input-change"
@@ -163,8 +156,8 @@ class Schedule extends PureComponent {
                                                 <option value="evening">Вторая смена</option>
                                             </select>
                                             <span id="create-list-button"
-                                                className="card-create-list-button" 
-                                                onClick={this.createDay}
+                                                  className="card-create-list-button"
+                                                  onClick={this.createDay}
                                             >
                                                 Создать
                                             </span>
@@ -180,16 +173,16 @@ class Schedule extends PureComponent {
     }
 }
 
-const mapStateToProps = ({ days }) => ({ days });
+const mapStateToProps = ({days}) => ({days});
 
 const mapDispatchToProps = dispatch => ({
-    addDayDispatch: ({ dayDate, dayChange, notes }) => 
-        dispatch(addDayAction({ dayDate, dayChange, notes })),
-    downloadDaysDispatch: (days) => 
+    addDayDispatch: ({dayDate, dayChange, notes}) =>
+        dispatch(addDayAction({dayDate, dayChange, notes})),
+    downloadDaysDispatch: (days) =>
         dispatch(downloadDaysAction(days))
 });
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-) (Schedule);
+)(Schedule);

@@ -8,6 +8,11 @@ const getDays = async () => {
     return days;
 };
 
+const getDoctors = async () => {
+    const response = await fetch(`http://${hostname}:${port}/doctors`);
+    return await response.json();
+};
+
 const addDay = async (day) => {
     const response = await fetch(`http://${hostname}:${port}/days`, {
         method: 'POST',
@@ -17,22 +22,22 @@ const addDay = async (day) => {
         }
     });
 
-    const { info } = await response.json();
+    const {info} = await response.json();
 
     return info;
 };
 
-const editNote = async ({ dayId, noteId, newNoteName }) => {   
-   const response = await fetch(`http://${hostname}:${port}/days/${dayId}/notes/${noteId}`, {
+const editNote = async ({dayId, noteId, newNoteName}) => {
+    const response = await fetch(`http://${hostname}:${port}/days/${dayId}/notes/${noteId}`, {
         method: 'PATCH',
-        body: JSON.stringify({ newNoteName }),
+        body: JSON.stringify({newNoteName}),
         headers: {
             'Content-Type': 'application/json'
         }
     });
-    const { info } = await response.json();
+    const {info} = await response.json();
     return info;
-} 
+}
 
 const removeDay = async (dayId) => {
     const response = await fetch(`http://${hostname}:${port}/days/${dayId}`, {
@@ -40,27 +45,28 @@ const removeDay = async (dayId) => {
     });
 
     if (response.status !== 200) {
-        const { error } = await response.json();
+        const {error} = await response.json();
         return Promise.reject(error);
     }
 
-    const { info } = await response.json();
+    const {info} = await response.json();
 
     return info;
-} 
+}
 
-const removeNote = async ({ dayId, noteId }) => {
+const removeNote = async ({dayId, noteId}) => {
     const response = await fetch(`http://${hostname}:${port}/days/${dayId}/notes/${noteId}`, {
         method: 'DELETE',
     });
 
-    const { info } = await response.json();
+    const {info} = await response.json();
 
     return info;
-} 
+}
 
 export {
     getDays,
+    getDoctors,
     addDay,
     editNote,
     removeDay,

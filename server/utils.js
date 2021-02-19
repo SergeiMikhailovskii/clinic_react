@@ -5,7 +5,7 @@ const fsp = fs.promises;
 
 const dirPath = path.resolve(__dirname, './temp');
 const hospitalFilePath = path.resolve(dirPath, 'hospital.json');
-const doctorsFilePath = path.resolve(dirPath, 'hospital.json');
+const doctorsFilePath = path.resolve(dirPath, 'doctors.json');
 
 const readHospitalData = async () => {
     if (!fs.existsSync(hospitalFilePath)) {

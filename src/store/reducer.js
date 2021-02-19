@@ -1,23 +1,22 @@
-import {
-    DOWNLOAD_DAYS,
-    ADD_DAY,
-    EDIT_NOTE,
-    REMOVE_NOTE,
-    REMOVE_DAY,
-} from './actions';
+import {ADD_DAY, DOWNLOAD_DAYS, DOWNLOAD_DOCTORS, EDIT_NOTE, REMOVE_DAY, REMOVE_NOTE} from './actions';
 
 const initialState = {
-    days: []
+    days: [],
+    doctors: []
 };
 
-export default function reducer(state = initialState, { type, payload }) {
+export default function reducer(state = initialState, {type, payload}) {
     switch (type) {
         case DOWNLOAD_DAYS:
             return {
                 ...state,
                 days: payload
             };
-
+        case DOWNLOAD_DOCTORS:
+            return {
+                ...state,
+                doctors: payload
+            };
         case ADD_DAY:
             return {
                 ...state,
@@ -47,18 +46,18 @@ export default function reducer(state = initialState, { type, payload }) {
                 ...state,
                 days: state.days.map(
                     (day, index) => index !== payload.dayId
-                        ? { ...day }
+                        ? {...day}
                         : {
                             ...day,
                             notes: day.notes.map(
                                 (note, noteIndex) => {
-                                    if(noteIndex === payload.noteId) {
+                                    if (noteIndex === payload.noteId) {
                                         note.noteName = payload.newNoteName;
                                     }
                                     return note;
                                 }
-                            ) 
-                        } 
+                            )
+                        }
                 )
             };
 
@@ -66,7 +65,7 @@ export default function reducer(state = initialState, { type, payload }) {
             const notes = state.days[payload.dayId].notes.map(
                 (note, index) => {
                     if (index === payload.noteId) {
-                        note.noteName = '';    
+                        note.noteName = '';
                     }
                     return note;
                 }
@@ -75,18 +74,18 @@ export default function reducer(state = initialState, { type, payload }) {
             return {
                 ...state,
                 days: state.days.map(
-                    (day, index) => index !== payload.dayId 
-                    ? {
-                        ...day
-                    }
-                    : { 
-                        ...day,
-                        notes 
-                    }
+                    (day, index) => index !== payload.dayId
+                        ? {
+                            ...day
+                        }
+                        : {
+                            ...day,
+                            notes
+                        }
                 )
-            };  
-            
+            };
+
         default:
-            return state;    
+            return state;
     }
 }
