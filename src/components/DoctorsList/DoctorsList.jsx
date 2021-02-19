@@ -20,7 +20,7 @@ class DoctorsList extends PureComponent {
                     {list.map(el => {
                         return <div>
                             <Link exact to={"/schedule/" + el.id}>
-                                <p style={{width: '200px'}} onClick={() => {
+                                <p onClick={() => {
                                     console.log(el.name)
                                 }}>{el.name}</p>
                             </Link>

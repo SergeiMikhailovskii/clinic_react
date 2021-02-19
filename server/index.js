@@ -1,10 +1,11 @@
 const express = require('express');
 const app = express();
-const { readData, writeData } = require('./utils');
+const { readHospitalData, readDoctorsData, writeHospitalData, writeDoctorsData } = require('./utils');
 const port = 4321;
 const hostname = 'localhost';
 
 let days = [];
+let doctors = [];
 
 // Middleware разрешения CORS-запросов
 app.use((request, response, next) => {
@@ -33,14 +34,20 @@ app.options('/*', (request, response) => {
 });
 
 app.get('/days', async (request, response) => {
-    days = await readData();
+    days = await readHospitalData();
     response.setHeader('Content-Type', 'application/json');
     response.json(days);
 });
 
+app.get('/doctors', async (request, response) => {
+    doctors = await readDoctorsData();
+    response.setHeader('Content-Type', 'application/json');
+    response.json(doctors)
+});
+
 app.post('/days', async (request, response) => {
     days.push(request.body);
-    await writeData(days);
+    await writeHospitalData(days);
 
     response.setHeader('Content-Type', 'application/json');
     response.status(200).json({
@@ -55,7 +62,7 @@ app.patch('/days/:dayId/notes/:noteId', async (request, response) => {
 
     let oldNoteName = days[dayId].notes[noteId].noteName;
     days[dayId].notes[noteId].noteName = newNoteName;
-    await writeData(days);
+    await writeHospitalData(days);
 
     response.setHeader('Content-Type', 'application/json');
     response.status(200).json({
@@ -80,7 +87,7 @@ app.delete('/days/:dayId', async (request, response) => {
     days = days.filter(
         (day, index) => index !== dayId
     );
-    await writeData(days);
+    await writeHospitalData(days);
 
     response.setHeader('Content-Type', 'application/json');
     response.status(200).json({
@@ -102,7 +109,7 @@ app.delete('/days/:dayId/notes/:noteId', async (request, response) => {
         }
     );
 
-    await writeData(days);
+    await writeHospitalData(days);
     response.setHeader('Content-Type', 'application/json');
     response.status(200).json({
         info: `Patient '${removedNoteName}' was successfully deleted from day

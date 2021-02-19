@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "doctorName": "Doctor1"
+  },
+  {
+    "id": 2,
+    "doctorName": "Doctor2"
+  },
+  {
+    "id": 3,
+    "doctorName": "Doctor3"
+  }
+]
