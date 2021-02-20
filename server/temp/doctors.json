@@ -1,14 +1,20 @@
 [
   {
     "id": 1,
-    "doctorName": "Doctor1"
+    "doctorName": "Doctor1",
+    "doctorSpecialization": "Specialization1",
+    "doctorPhoto": "https://images.generated.photos/dAmmtUvU1AhtCZyJPZ8IB2cZtVL8moS-JG9sXYK3WYE/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA5NDkyMTguanBn.jpg"
   },
   {
     "id": 2,
-    "doctorName": "Doctor2"
+    "doctorName": "Doctor2",
+    "doctorSpecialization": "Specialization2",
+    "doctorPhoto": "https://images.generated.photos/ThSppQpPmrb53-QLF6TZOqtzM_S4S1r2D569uj6beT4/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA3MzAzODIuanBn.jpg"
   },
   {
     "id": 3,
-    "doctorName": "Doctor3"
+    "doctorName": "Doctor3",
+    "doctorSpecialization": "Specialization3",
+    "doctorPhoto": "https://images.generated.photos/nHZQpCvEq5kpOdmSdFhfJAoawvu_IPKT6Zdy_L8okv0/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA5Njk1ODUuanBn.jpg"
   }
 ]

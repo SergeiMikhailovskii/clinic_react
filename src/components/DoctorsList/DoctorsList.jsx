@@ -19,11 +19,15 @@ class DoctorsList extends PureComponent {
             <Fragment>
                 <div style={{backgroundColor: 'rgba(256, 0, 0, 0.2)'}}>
                     {doctors.map(el => {
-                        return <div>
-                            <Link exact to={"/schedule/" + el.id}>
-                                <p>{el.doctorName}</p>
-                            </Link>
-                        </div>
+                        return <Link exact to={"/schedule/" + el.id}>
+                            <div>
+                                <img src={el.doctorPhoto} width='100px' height='100px' className="doctor-photo-list"/>
+                                <div className="doctor-name-list">
+                                    <p>{el.doctorName}</p>
+                                    <p>{el.doctorSpecialization}</p>
+                                </div>
+                            </div>
+                        </Link>
                     })}
                 </div>
             </Fragment>
