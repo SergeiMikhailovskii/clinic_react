@@ -36,8 +36,19 @@ const addDoctor = async (doctor) => {
         }
     });
 
-    const info = await response.json();
-    return info;
+    return await response.json();
+};
+
+const deleteDoctor = async (id) => {
+    const response = await fetch(`http://${hostname}:${port}/doctor/delete`, {
+        method: 'POST',
+        body: JSON.stringify(id),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    return await response.json();
 };
 
 const editNote = async ({dayId, noteId, newNoteName}) => {
@@ -84,5 +95,6 @@ export {
     addDoctor,
     editNote,
     removeDay,
-    removeNote
+    removeNote,
+    deleteDoctor
 };

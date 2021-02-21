@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const { readHospitalData, readDoctorsData, writeHospitalData, writeDoctorsData } = require('./utils');
+const {readHospitalData, readDoctorsData, writeHospitalData, writeDoctorsData} = require('./utils');
 const port = 4321;
 const hostname = 'localhost';
 
@@ -58,7 +58,7 @@ app.post('/days', async (request, response) => {
 app.post('/doctor', async (request, response) => {
     doctors = await readDoctorsData();
     const doctor = request.body;
-    doctor.id = doctors[doctors.length-1].id + 1;
+    doctor.id = doctors[doctors.length - 1].id + 1;
     doctors.push(doctor);
     await writeDoctorsData(doctors);
     response.setHeader('Content-Type', 'application/json');
@@ -66,7 +66,7 @@ app.post('/doctor', async (request, response) => {
 });
 
 app.patch('/days/:dayId/notes/:noteId', async (request, response) => {
-    const { newNoteName } = request.body;
+    const {newNoteName} = request.body;
     const dayId = Number(request.params.dayId);
     const noteId = Number(request.params.noteId);
 
@@ -105,15 +105,22 @@ app.delete('/days/:dayId', async (request, response) => {
     });
 });
 
+app.post("/doctor/delete", async (request, response) => {
+    doctors = await readDoctorsData();
+    doctors = doctors.filter(el => el.id !== request.body.id);
+    await writeDoctorsData(doctors);
+    response.status(200).json(doctors)
+});
+
 app.delete('/days/:dayId/notes/:noteId', async (request, response) => {
     const dayId = Number(request.params.dayId);
     const noteId = Number(request.params.noteId);
-    
+
     const removedNoteName = days[dayId].notes[noteId].noteName;
     days[dayId].notes = days[dayId].notes.map(
         (note, index) => {
             if (index === noteId) {
-                note.noteName = '';    
+                note.noteName = '';
             }
             return note;
         }
