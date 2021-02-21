@@ -112,6 +112,20 @@ app.post("/doctor/delete", async (request, response) => {
     response.status(200).json(doctors)
 });
 
+app.post("/doctor/edit", async (request, response) => {
+    doctors = await readDoctorsData();
+    doctors = doctors.map(el => {
+        if (el.id === request.body.id) {
+            el.doctorName = request.body.doctorName;
+            el.doctorSpecialization = request.body.doctorSpecialization;
+            el.doctorPhoto = request.body.doctorPhoto;
+        }
+        return el;
+    });
+    await writeDoctorsData(doctors);
+    response.status(200).json(doctors)
+});
+
 app.delete('/days/:dayId/notes/:noteId', async (request, response) => {
     const dayId = Number(request.params.dayId);
     const noteId = Number(request.params.noteId);

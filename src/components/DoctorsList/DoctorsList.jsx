@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
 import {getDoctors as getDoctorsFromServer} from '../../models/AppModel.js';
 import {addNewDoctorAction, downloadDoctorsAction} from "../../store/actions";
-import {addDoctor, deleteDoctor} from "../../models/AppModel";
+import {addDoctor, deleteDoctor, editDoctor} from "../../models/AppModel";
 
 
 class DoctorsList extends PureComponent {
@@ -32,6 +32,22 @@ class DoctorsList extends PureComponent {
         }
     };
 
+    editDoctor = async (id) => {
+        let name = prompt("Введите имя");
+        if (name === null) return;
+        let position = prompt("Введите специализацию");
+        if (position === null) return;
+        let image = prompt("Вставьте ссылку на фотографию");
+        if (image === null) return;
+        const doctors = await editDoctor({
+            "id": id,
+            "doctorName": name,
+            "doctorSpecialization": position,
+            "doctorPhoto": image
+        });
+        this.props.addNewDoctorDispatch(doctors)
+    };
+
     render() {
         const {doctors} = this.props;
         return (
@@ -50,7 +66,9 @@ class DoctorsList extends PureComponent {
                                     </div>
                                 </div>
                             </Link>
-                            <button className="doctor-name-list" onClick={() => this.deleteDoctor(el.id)}>Delete
+                            <button className="doctor-name-list" onClick={() => this.deleteDoctor(el.id)}>Удалить
+                            </button>
+                            <button className="doctor-name-list" onClick={() => this.editDoctor(el.id)}>Изменить
                             </button>
                         </div>
                     })}
