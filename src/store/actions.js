@@ -1,5 +1,6 @@
 const DOWNLOAD_DAYS = 'DOWNLOAD_DAYS';
 const DOWNLOAD_DOCTORS = 'DOWNLOAD_DOCTORS';
+const ADD_NEW_DOCTOR = 'ADD_NEW_DOCTOR';
 const ADD_DAY = 'ADD_DAY';
 const REMOVE_DAY = 'REMOVE_DAY';
 const EDIT_NOTE = 'EDIT_NOTE';
@@ -12,6 +13,11 @@ const downloadDaysAction = (days) => ({
 
 const downloadDoctorsAction = (doctors) => ({
     type: DOWNLOAD_DOCTORS,
+    payload: doctors
+});
+
+const addNewDoctorAction = (doctors) => ({
+    type: ADD_NEW_DOCTOR,
     payload: doctors
 });
 
@@ -50,11 +56,13 @@ export {
     DOWNLOAD_DAYS,
     DOWNLOAD_DOCTORS,
     ADD_DAY,
+    ADD_NEW_DOCTOR,
     REMOVE_DAY,
     EDIT_NOTE,
     REMOVE_NOTE,
     downloadDaysAction,
     downloadDoctorsAction,
+    addNewDoctorAction,
     addDayAction,
     removeNotelistAction,
     editNoteAction,

@@ -55,6 +55,16 @@ app.post('/days', async (request, response) => {
     });
 });
 
+app.post('/doctor', async (request, response) => {
+    doctors = await readDoctorsData();
+    const doctor = request.body;
+    doctor.id = doctors[doctors.length-1].id + 1;
+    doctors.push(doctor);
+    await writeDoctorsData(doctors);
+    response.setHeader('Content-Type', 'application/json');
+    response.status(200).json(doctors)
+});
+
 app.patch('/days/:dayId/notes/:noteId', async (request, response) => {
     const { newNoteName } = request.body;
     const dayId = Number(request.params.dayId);

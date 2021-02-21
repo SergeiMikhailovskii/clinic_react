@@ -27,6 +27,19 @@ const addDay = async (day) => {
     return info;
 };
 
+const addDoctor = async (doctor) => {
+    const response = await fetch(`http://${hostname}:${port}/doctor`, {
+        method: 'POST',
+        body: JSON.stringify(doctor),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    const info = await response.json();
+    return info;
+};
+
 const editNote = async ({dayId, noteId, newNoteName}) => {
     const response = await fetch(`http://${hostname}:${port}/days/${dayId}/notes/${noteId}`, {
         method: 'PATCH',
@@ -68,6 +81,7 @@ export {
     getDays,
     getDoctors,
     addDay,
+    addDoctor,
     editNote,
     removeDay,
     removeNote
