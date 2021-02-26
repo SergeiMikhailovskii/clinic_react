@@ -14,14 +14,15 @@ const Note = ({
     noteId,
     dayId,
     editNoteDispatch,
-    removeNoteDispatch
+    removeNoteDispatch,
+    id
 }) => {
-    const editNote = async () => {
+    const editNote = async (id) => {
         let newNoteName = prompt('Введите фамилию пациента', noteName);
         if (!newNoteName) return;
         newNoteName = newNoteName.trim();
         if (!newNoteName || newNoteName === noteName) return;
-        const info = await editNoteServer({ dayId, noteId, newNoteName });
+        const info = await editNoteServer({ dayId, noteId, newNoteName, id });
         console.log(info);
         editNoteDispatch({ dayId, noteId, newNoteName });
     };
@@ -47,7 +48,7 @@ const Note = ({
                 <div className="card-task-icons-first-row">
                     <span 
                         className="card-task-icon card-task-icon-edit"
-                        onClick={editNote}
+                        onClick={() => editNote(id)}
                     >
                     </span>
                 </div>

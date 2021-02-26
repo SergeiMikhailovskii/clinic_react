@@ -33,25 +33,26 @@ app.options('/*', (request, response) => {
     response.send('OK');
 });
 
-app.get('/days', async (request, response) => {
-    days = await readHospitalData();
+app.post('/days/get', async (request, response) => {
+    days = await readHospitalData(request.body.id);
     response.setHeader('Content-Type', 'application/json');
-    response.json(days);
+    await response.json(days);
 });
 
 app.get('/doctors', async (request, response) => {
     doctors = await readDoctorsData();
     response.setHeader('Content-Type', 'application/json');
-    response.json(doctors)
+    await response.json(doctors)
 });
 
 app.post('/days', async (request, response) => {
-    days.push(request.body);
-    await writeHospitalData(days);
+    days.push(request.body.day);
+    console.log(request.body);
+    await writeHospitalData(days, request.body.id);
 
     response.setHeader('Content-Type', 'application/json');
     response.status(200).json({
-        info: `Day '${request.body.dayDate}' was successfully added`
+        info: `Day '${request.body.day.dayDate}' was successfully added`
     });
 });
 
@@ -66,13 +67,13 @@ app.post('/doctor', async (request, response) => {
 });
 
 app.patch('/days/:dayId/notes/:noteId', async (request, response) => {
-    const {newNoteName} = request.body;
+    const {newNoteName, id} = request.body;
     const dayId = Number(request.params.dayId);
     const noteId = Number(request.params.noteId);
 
     let oldNoteName = days[dayId].notes[noteId].noteName;
     days[dayId].notes[noteId].noteName = newNoteName;
-    await writeHospitalData(days);
+    await writeHospitalData(days, id);
 
     response.setHeader('Content-Type', 'application/json');
     response.status(200).json({

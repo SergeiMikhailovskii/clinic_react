@@ -4,6 +4,8 @@ import {addDay as addDayServer, getDays as getDaysServer} from '../../models/App
 import {addDayAction, downloadDaysAction} from '../../store/actions';
 import Day from '../Day/Day';
 import './Schedule.css';
+import withRouter from "react-router-dom/es/withRouter";
+import {compose} from "redux";
 
 function makeInitnotesFromHourBounds(leftBound, rightBound) {
     const N = (rightBound - leftBound) * 60 / 20 + 1;
@@ -26,7 +28,8 @@ class Schedule extends PureComponent {
     };
 
     async componentDidMount() {
-        const days = await getDaysServer();
+        const id = this.props.match.params.id;
+        const days = await getDaysServer({"id": id});
         this.props.downloadDaysDispatch(days);
     }
 
@@ -57,7 +60,7 @@ class Schedule extends PureComponent {
 
             let tmpArr = makeInitnotesFromHourBounds(bound[0], bound[1]);
 
-            const info = await addDayServer({
+            const info = await addDayServer(this.props.match.params.id, {
                 dayDate: this.state.dateInputValue,
                 dayChange: change,
                 notes: [...tmpArr]
@@ -76,7 +79,7 @@ class Schedule extends PureComponent {
             dateInputValue: '',
             changeInputValue: 'day'
         })
-    }
+    };
 
     onKeyDown = (event) => {
         if (event.key === 'Escape') {
@@ -85,8 +88,6 @@ class Schedule extends PureComponent {
                 dateInputValue: '',
                 changeInputValue: 'day'
             });
-
-            return;
         }
     };
 
@@ -97,19 +98,12 @@ class Schedule extends PureComponent {
         return (
             <Fragment>
                 <header id="main-header">
-                    <div className="header-logo"></div>
+                    <div className="header-logo"/>
                     <div className="header-name">Поликлиника №1</div>
-                    <div className="header-space"></div>
+                    <div className="header-space"/>
                     <div className="header-address">г. Минск, Партизанский проспект, дом 89а</div>
                 </header>
                 <div className="main-flex">
-                    {/*<div className="doctor-box">*/}
-                    {/*    <div className="doctor-photo"></div>*/}
-                    {/*    <div className="doctor-name">Михайловский Сергей Иванович</div>*/}
-                    {/*    <div className="doctor-text">Врач высшей категории,*/}
-                    {/*        <br />создатель системы*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
                     <main id="main-content-container">
                         <div id="main-content">
                             {days.map((day, index) => (
@@ -118,6 +112,7 @@ class Schedule extends PureComponent {
                                     dayChange={day.dayChange}
                                     dayId={index}
                                     notes={day.notes}
+                                    id={this.props.match.params.id}
                                     key={`list${index}`}
                                 />
                             ))}
@@ -182,7 +177,10 @@ const mapDispatchToProps = dispatch => ({
         dispatch(downloadDaysAction(days))
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+export default compose(
+    withRouter,
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )
 )(Schedule);

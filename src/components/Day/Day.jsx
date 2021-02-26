@@ -11,7 +11,8 @@ const Day = ({
     dayChange,
     dayId,
     notes = [],
-    removeNotelistDispatch
+    removeNotelistDispatch,
+    id
 }) => {
     const removeNotelist = async () => {
         try {
@@ -50,6 +51,7 @@ const Day = ({
                             noteTime={note.noteTime}
                             noteId={index}
                             dayId={dayId}
+                            id={id}
                             key={`list${dayId}-note${index}`}
                         />
                     ))}

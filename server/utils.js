@@ -5,10 +5,11 @@ const fsp = fs.promises;
 
 const dirPath = path.resolve(__dirname, './temp');
 const schedulesPath = path.resolve(__dirname, './temp/schedules');
-const hospitalFilePath = path.resolve(schedulesPath, 'schedule.json');
+let hospitalFilePath = path.resolve(schedulesPath, 'schedule1.json');
 const doctorsFilePath = path.resolve(dirPath, 'doctors.json');
 
-const readHospitalData = async () => {
+const readHospitalData = async (id) => {
+    hospitalFilePath = path.resolve(schedulesPath, 'schedule' + id + '.json');
     if (!fs.existsSync(hospitalFilePath)) {
         if (!fs.existsSync(dirPath)) {
             await fsp.mkdir(dirPath);
@@ -40,7 +41,9 @@ const readDoctorsData = async () => {
     return JSON.parse(data);
 };
 
-const writeHospitalData = async (data) => {
+const writeHospitalData = async (data, id) => {
+    hospitalFilePath = path.resolve(schedulesPath, 'schedule' + id + '.json');
+
     if (data === undefined) return;
 
     await fsp.writeFile(hospitalFilePath, JSON.stringify(data), 'utf-8');

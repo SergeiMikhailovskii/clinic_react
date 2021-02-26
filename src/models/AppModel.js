@@ -1,11 +1,15 @@
 const port = 4321;
 const hostname = 'localhost';
 
-const getDays = async () => {
-    const response = await fetch(`http://${hostname}:${port}/days`);
-    const days = await response.json();
-
-    return days;
+const getDays = async (id) => {
+    const response = await fetch(`http://${hostname}:${port}/days/get`, {
+        method: 'POST',
+        body: JSON.stringify(id),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    return await response.json();
 };
 
 const getDoctors = async () => {
@@ -13,10 +17,10 @@ const getDoctors = async () => {
     return await response.json();
 };
 
-const addDay = async (day) => {
+const addDay = async (id, day) => {
     const response = await fetch(`http://${hostname}:${port}/days`, {
         method: 'POST',
-        body: JSON.stringify(day),
+        body: JSON.stringify({id, day}),
         headers: {
             'Content-Type': 'application/json'
         }
@@ -63,10 +67,11 @@ const deleteDoctor = async (id) => {
     return await response.json();
 };
 
-const editNote = async ({dayId, noteId, newNoteName}) => {
+const editNote = async ({dayId, noteId, newNoteName, id}) => {
+    console.log("AppModel " + id)
     const response = await fetch(`http://${hostname}:${port}/days/${dayId}/notes/${noteId}`, {
         method: 'PATCH',
-        body: JSON.stringify({newNoteName}),
+        body: JSON.stringify({id, newNoteName}),
         headers: {
             'Content-Type': 'application/json'
         }
