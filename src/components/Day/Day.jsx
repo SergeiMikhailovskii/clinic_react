@@ -1,20 +1,18 @@
-import React, { memo } from 'react';
-import { connect } from 'react-redux';
-import { removeDay as removeDayServer } from '../../models/AppModel';
-import {
-    removeNotelistAction
-} from '../../store/actions';
+import React, {memo} from 'react';
+import {connect} from 'react-redux';
+import {removeDay as removeDayServer} from '../../models/AppModel';
+import {removeNotelistAction} from '../../store/actions';
 import Note from '../Note/Note';
 
 const Day = ({
-    dayDate,
-    dayChange,
-    dayId,
-    notes = [],
-    removeNotelistDispatch,
-    id
-}) => {
-    const removeNotelist = async () => {
+                 dayDate,
+                 dayChange,
+                 dayId,
+                 notes = [],
+                 removeNotelistDispatch,
+                 id
+             }) => {
+    const removeNotelist = async (id) => {
         try {
             for (let i = 0; i < notes.length; i++) {
                 if (notes[i].noteName) {
@@ -25,7 +23,7 @@ const Day = ({
 
             // eslint-disable-next-line no-restricted-globals
             if (confirm(`День '${dayDate}' будет удален. Продолжить?`)) {
-                const info = await removeDayServer(dayId);
+                const info = await removeDayServer(dayId, id);
                 console.log(info);
                 removeNotelistDispatch(dayId);
             }
@@ -38,8 +36,8 @@ const Day = ({
         <div className="element-container">
             <div className="card">
                 <span className="card-task-icon card-task-icon-delete card-task-icon-remove-daylist"
-                      onClick={removeNotelist}
-                ></span>
+                      onClick={() => removeNotelist(id)}
+                />
 
                 <div className="card-header">
                     {dayDate} | {dayChange}
@@ -62,7 +60,7 @@ const Day = ({
 };
 
 const mapDispatchToProps = dispatch => ({
-    removeNotelistDispatch: dayId => 
+    removeNotelistDispatch: dayId =>
         dispatch(removeNotelistAction(dayId))
 });
 

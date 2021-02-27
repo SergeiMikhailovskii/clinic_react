@@ -80,8 +80,8 @@ const editNote = async ({dayId, noteId, newNoteName, id}) => {
     return info;
 }
 
-const removeDay = async (dayId) => {
-    const response = await fetch(`http://${hostname}:${port}/days/${dayId}`, {
+const removeDay = async (dayId, id) => {
+    const response = await fetch(`http://${hostname}:${port}/days/${dayId}/userId/${id}`, {
         method: 'DELETE',
     });
 
@@ -95,8 +95,8 @@ const removeDay = async (dayId) => {
     return info;
 }
 
-const removeNote = async ({dayId, noteId}) => {
-    const response = await fetch(`http://${hostname}:${port}/days/${dayId}/notes/${noteId}`, {
+const removeNote = async ({dayId, noteId, id}) => {
+    const response = await fetch(`http://${hostname}:${port}/days/${dayId}/notes/${noteId}/userId/${id}`, {
         method: 'DELETE',
     });
 

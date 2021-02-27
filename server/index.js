@@ -47,7 +47,6 @@ app.get('/doctors', async (request, response) => {
 
 app.post('/days', async (request, response) => {
     days.push(request.body.day);
-    console.log(request.body);
     await writeHospitalData(days, request.body.id);
 
     response.setHeader('Content-Type', 'application/json');
@@ -82,8 +81,9 @@ app.patch('/days/:dayId/notes/:noteId', async (request, response) => {
     });
 });
 
-app.delete('/days/:dayId', async (request, response) => {
+app.delete('/days/:dayId/userId/:userId', async (request, response) => {
     const dayId = Number(request.params.dayId);
+    const id = Number(request.params.userId);
 
     for (let i = 0; i < days[dayId].length; i++) {
         if (days[dayId].notes[i].noteName) {
@@ -98,7 +98,7 @@ app.delete('/days/:dayId', async (request, response) => {
     days = days.filter(
         (day, index) => index !== dayId
     );
-    await writeHospitalData(days);
+    await writeHospitalData(days, id);
 
     response.setHeader('Content-Type', 'application/json');
     response.status(200).json({
@@ -127,9 +127,10 @@ app.post("/doctor/edit", async (request, response) => {
     response.status(200).json(doctors)
 });
 
-app.delete('/days/:dayId/notes/:noteId', async (request, response) => {
+app.delete('/days/:dayId/notes/:noteId/userId/:userId', async (request, response) => {
     const dayId = Number(request.params.dayId);
     const noteId = Number(request.params.noteId);
+    const id = Number(request.params.userId);
 
     const removedNoteName = days[dayId].notes[noteId].noteName;
     days[dayId].notes = days[dayId].notes.map(
@@ -141,7 +142,7 @@ app.delete('/days/:dayId/notes/:noteId', async (request, response) => {
         }
     );
 
-    await writeHospitalData(days);
+    await writeHospitalData(days, id);
     response.setHeader('Content-Type', 'application/json');
     response.status(200).json({
         info: `Patient '${removedNoteName}' was successfully deleted from day

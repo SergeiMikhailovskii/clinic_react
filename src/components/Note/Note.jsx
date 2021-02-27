@@ -27,11 +27,11 @@ const Note = ({
         editNoteDispatch({ dayId, noteId, newNoteName });
     };
 
-    const removeNote = async () => {
+    const removeNote = async (id) => {
         if (noteName) {    
             // eslint-disable-next-line no-restricted-globals
             if (confirm(`Пациент '${noteName}' будет удален из расписания. Продолжить?`)) {
-                const info = await removeNoteServer({ dayId, noteId });
+                const info = await removeNoteServer({ dayId, noteId, id });
                 console.log(info);
                 removeNoteDispatch({ dayId, noteId });
             }
@@ -55,7 +55,7 @@ const Note = ({
                 <div className="card-task-icons-second-row">
                     <span 
                         className="card-task-icon card-task-icon-delete"
-                        onClick={removeNote}
+                        onClick={() => removeNote(id)}
                     >
                     </span>
                 </div>
