@@ -6,6 +6,7 @@ import Day from '../Day/Day';
 import './Schedule.css';
 import withRouter from "react-router-dom/es/withRouter";
 import {compose} from "redux";
+import {Link} from "react-router-dom";
 
 function makeInitnotesFromHourBounds(leftBound, rightBound) {
     const N = (rightBound - leftBound) * 60 / 20 + 1;
@@ -101,7 +102,9 @@ class Schedule extends PureComponent {
                     <div className="header-logo"/>
                     <div className="header-name">Поликлиника №1</div>
                     <div className="header-space"/>
-                    <div className="header-address">г. Минск, Партизанский проспект, дом 89а</div>
+                    <Link exact to={"/about"}>
+                        <div className="header-address">г. Минск, Партизанский проспект, дом 89а</div>
+                    </Link>
                 </header>
                 <div className="main-flex">
                     <main id="main-content-container">

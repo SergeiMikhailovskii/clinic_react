@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import DoctorsList from './components/DoctorsList/DoctorsList';
 import store from './store';
 import Schedule from "./components/Schedule/Schedule";
+import About from "./components/About/About";
 
 ReactDOM.render(
     <React.StrictMode>
@@ -12,6 +13,7 @@ ReactDOM.render(
             <Router>
                 <Switch>
                     <Route path="/schedule/:id" component={Schedule}/>
+                    <Route path="/about" component={About}/>
                     <Route path="/" component={DoctorsList}/>
                 </Switch>
             </Router>

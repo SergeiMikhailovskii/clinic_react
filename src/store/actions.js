@@ -1,5 +1,6 @@
 const DOWNLOAD_DAYS = 'DOWNLOAD_DAYS';
 const DOWNLOAD_DOCTORS = 'DOWNLOAD_DOCTORS';
+const DOWNLOAD_REVIEWS = 'DOWNLOAD_REVIEWS';
 const ADD_NEW_DOCTOR = 'ADD_NEW_DOCTOR';
 const ADD_DAY = 'ADD_DAY';
 const REMOVE_DAY = 'REMOVE_DAY';
@@ -14,6 +15,11 @@ const downloadDaysAction = (days) => ({
 const downloadDoctorsAction = (doctors) => ({
     type: DOWNLOAD_DOCTORS,
     payload: doctors
+});
+
+const downloadReviewsAction = (reviews) => ({
+    type: DOWNLOAD_REVIEWS,
+    payload: reviews
 });
 
 const addNewDoctorAction = (doctors) => ({
@@ -55,6 +61,7 @@ const removeNoteAction = ({dayId, noteId}) => ({
 export {
     DOWNLOAD_DAYS,
     DOWNLOAD_DOCTORS,
+    DOWNLOAD_REVIEWS,
     ADD_DAY,
     ADD_NEW_DOCTOR,
     REMOVE_DAY,
@@ -62,6 +69,7 @@ export {
     REMOVE_NOTE,
     downloadDaysAction,
     downloadDoctorsAction,
+    downloadReviewsAction,
     addNewDoctorAction,
     addDayAction,
     removeNotelistAction,

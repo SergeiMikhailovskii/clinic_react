@@ -1,8 +1,18 @@
-import {ADD_DAY, ADD_NEW_DOCTOR, DOWNLOAD_DAYS, DOWNLOAD_DOCTORS, EDIT_NOTE, REMOVE_DAY, REMOVE_NOTE} from './actions';
+import {
+    ADD_DAY,
+    ADD_NEW_DOCTOR,
+    DOWNLOAD_DAYS,
+    DOWNLOAD_DOCTORS,
+    DOWNLOAD_REVIEWS,
+    EDIT_NOTE,
+    REMOVE_DAY,
+    REMOVE_NOTE
+} from './actions';
 
 const initialState = {
     days: [],
-    doctors: []
+    doctors: [],
+    reviews: []
 };
 
 export default function reducer(state = initialState, {type, payload}) {
@@ -16,6 +26,11 @@ export default function reducer(state = initialState, {type, payload}) {
             return {
                 ...state,
                 doctors: payload
+            };
+        case DOWNLOAD_REVIEWS:
+            return {
+                ...state,
+                reviews: payload
             };
         case ADD_DAY:
             return {

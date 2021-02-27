@@ -68,7 +68,6 @@ const deleteDoctor = async (id) => {
 };
 
 const editNote = async ({dayId, noteId, newNoteName, id}) => {
-    console.log("AppModel " + id)
     const response = await fetch(`http://${hostname}:${port}/days/${dayId}/notes/${noteId}`, {
         method: 'PATCH',
         body: JSON.stringify({id, newNoteName}),
@@ -78,7 +77,7 @@ const editNote = async ({dayId, noteId, newNoteName, id}) => {
     });
     const {info} = await response.json();
     return info;
-}
+};
 
 const removeDay = async (dayId, id) => {
     const response = await fetch(`http://${hostname}:${port}/days/${dayId}/userId/${id}`, {
@@ -93,7 +92,7 @@ const removeDay = async (dayId, id) => {
     const {info} = await response.json();
 
     return info;
-}
+};
 
 const removeNote = async ({dayId, noteId, id}) => {
     const response = await fetch(`http://${hostname}:${port}/days/${dayId}/notes/${noteId}/userId/${id}`, {
@@ -103,13 +102,32 @@ const removeNote = async ({dayId, noteId, id}) => {
     const {info} = await response.json();
 
     return info;
-}
+};
+
+const addReview = async (review) => {
+    const response = await fetch(`http://${hostname}:${port}/review`, {
+        method: 'POST',
+        body: JSON.stringify({review}),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    return await response.json();
+};
+
+const getReviews = async () => {
+    const response = await fetch(`http://${hostname}:${port}/review`);
+    return await response.json();
+};
 
 export {
     getDays,
     getDoctors,
+    getReviews,
     addDay,
     addDoctor,
+    addReview,
     editNote,
     removeDay,
     removeNote,

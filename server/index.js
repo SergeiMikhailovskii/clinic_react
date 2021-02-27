@@ -1,11 +1,12 @@
 const express = require('express');
 const app = express();
-const {readHospitalData, readDoctorsData, writeHospitalData, writeDoctorsData} = require('./utils');
+const {readHospitalData, readDoctorsData, writeHospitalData, writeDoctorsData, readReviews, writeReviews} = require('./utils');
 const port = 4321;
 const hostname = 'localhost';
 
 let days = [];
 let doctors = [];
+let reviews = [];
 
 // Middleware разрешения CORS-запросов
 app.use((request, response, next) => {
@@ -43,6 +44,12 @@ app.get('/doctors', async (request, response) => {
     doctors = await readDoctorsData();
     response.setHeader('Content-Type', 'application/json');
     await response.json(doctors)
+});
+
+app.get('/review', async (request, response) => {
+    reviews = await readReviews();
+    response.setHeader('Content-Type', 'application/json');
+    await response.json(reviews)
 });
 
 app.post('/days', async (request, response) => {
@@ -125,6 +132,20 @@ app.post("/doctor/edit", async (request, response) => {
     });
     await writeDoctorsData(doctors);
     response.status(200).json(doctors)
+});
+
+app.post("/review", async (request, response) => {
+    reviews = await readReviews();
+    const review = request.body;
+    if (reviews.length === 0) {
+        review.id = 1
+    } else {
+        review.id = reviews[reviews.length - 1].id + 1;
+    }
+    reviews.push(review);
+    await writeReviews(reviews);
+    response.setHeader('Content-Type', 'application/json');
+    response.status(200).json(reviews)
 });
 
 app.delete('/days/:dayId/notes/:noteId/userId/:userId', async (request, response) => {
