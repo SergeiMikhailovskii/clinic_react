@@ -7,6 +7,7 @@ const dirPath = path.resolve(__dirname, './temp');
 const schedulesPath = path.resolve(__dirname, './temp/schedules');
 const doctorsFilePath = path.resolve(dirPath, 'doctors.json');
 const reviewsFilePath = path.resolve(dirPath, 'reviews.json');
+const usersFilePath = path.resolve(dirPath, 'users.json');
 let hospitalFilePath = path.resolve(schedulesPath, 'schedule1.json');
 
 const readHospitalData = async (id) => {
@@ -58,6 +59,22 @@ const readReviews = async () => {
     return JSON.parse(data);
 };
 
+const readUsers = async () => {
+    if (!fs.existsSync(usersFilePath)) {
+        if (!fs.existsSync(dirPath)) {
+            await fsp.mkdir(dirPath);
+        }
+
+        const file = await fsp.open(usersFilePath, 'w');
+        await file.write('[]');
+        await file.close();
+        return [];
+    }
+
+    const data = await fsp.readFile(usersFilePath, {encoding: 'utf-8'});
+    return JSON.parse(data);
+};
+
 const writeHospitalData = async (data, id) => {
     hospitalFilePath = path.resolve(schedulesPath, 'schedule' + id + '.json');
 
@@ -78,11 +95,19 @@ const writeReviews = async (data) => {
     await fsp.writeFile(reviewsFilePath, JSON.stringify(data), 'utf-8');
 };
 
+const writeUsers = async (data) => {
+    if (data === undefined) return;
+
+    await fsp.writeFile(usersFilePath, JSON.stringify(data), 'utf-8');
+};
+
 module.exports = {
     readHospitalData,
     readDoctorsData,
     readReviews,
+    readUsers,
     writeHospitalData,
     writeDoctorsData,
-    writeReviews
+    writeReviews,
+    writeUsers
 };

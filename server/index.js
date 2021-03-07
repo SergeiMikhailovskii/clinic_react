@@ -1,12 +1,13 @@
 const express = require('express');
 const app = express();
-const {readHospitalData, readDoctorsData, writeHospitalData, writeDoctorsData, readReviews, writeReviews} = require('./utils');
+const {readHospitalData, readDoctorsData, writeHospitalData, writeDoctorsData, readReviews, writeReviews, readUsers, writeUsers} = require('./utils');
 const port = 4321;
 const hostname = 'localhost';
 
 let days = [];
 let doctors = [];
 let reviews = [];
+let users = [];
 
 // Middleware разрешения CORS-запросов
 app.use((request, response, next) => {
@@ -146,6 +147,39 @@ app.post("/review", async (request, response) => {
     await writeReviews(reviews);
     response.setHeader('Content-Type', 'application/json');
     response.status(200).json(reviews)
+});
+
+app.post('/register', async (request, response) => {
+    const userData = request.body;
+    users = await readUsers();
+
+    if (users.length === 0) {
+        userData.id = 1;
+        userData.isAdmin = true
+    } else {
+        if (users.filter(el => el.login === userData.login).length !== 0) {
+            response.status(200).json({error: true});
+            return;
+        }
+        userData.id = users[users.length - 1].id + 1;
+        userData.role = false
+    }
+    users.push(userData);
+    await writeUsers(users);
+    response.status(200).json({success: true});
+});
+
+app.post('/login', async (request, response) => {
+    const userData = request.body;
+    users = await readUsers();
+
+    const user = users.find(el => el.login === userData.login && el.password === el.password);
+    if (user) {
+        response.cookie('isAdmin', user.isAdmin);
+        response.status(200).json({success: true})
+    } else {
+        response.status(200).json({success: false})
+    }
 });
 
 app.delete('/days/:dayId/notes/:noteId/userId/:userId', async (request, response) => {

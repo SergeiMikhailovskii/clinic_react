@@ -121,6 +121,28 @@ const getReviews = async () => {
     return await response.json();
 };
 
+const loginUser = async ({login, password}) => {
+    const response = await fetch(`http://${hostname}:${port}/login`, {
+        method: 'POST',
+        body: JSON.stringify({login, password}),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    return await response.json();
+};
+
+const registerUser = async ({login, password}) => {
+    const response = await fetch(`http://${hostname}:${port}/register`, {
+        method: 'POST',
+        body: JSON.stringify({login, password}),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    return await response.json()
+};
+
 export {
     getDays,
     getDoctors,
@@ -132,5 +154,7 @@ export {
     removeDay,
     removeNote,
     deleteDoctor,
-    editDoctor
+    editDoctor,
+    loginUser,
+    registerUser
 };
