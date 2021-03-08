@@ -1,5 +1,6 @@
 import React, {PureComponent} from "react";
 import {loginUser, registerUser} from "../../models/AppModel";
+import Cookies from "js-cookie"
 
 class Login extends PureComponent {
 
@@ -23,6 +24,7 @@ class Login extends PureComponent {
     onLoginClick = async () => {
         const response = await loginUser({login: this.state.login, password: this.state.password});
         if (response.success === true) {
+            Cookies.set('isAdmin', response.isAdmin);
             this.props.history.push("/main");
         } else {
             alert("User not found")

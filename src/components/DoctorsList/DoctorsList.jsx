@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import {getDoctors as getDoctorsFromServer} from '../../models/AppModel.js';
 import {addNewDoctorAction, downloadDoctorsAction} from "../../store/actions";
 import {addDoctor, deleteDoctor, editDoctor} from "../../models/AppModel";
+import Cookies from "js-cookie";
 
 
 class DoctorsList extends PureComponent {
@@ -66,10 +67,12 @@ class DoctorsList extends PureComponent {
                                     </div>
                                 </div>
                             </Link>
-                            <button className="doctor-name-list" onClick={() => this.deleteDoctor(el.id)}>Удалить
-                            </button>
-                            <button className="doctor-name-list" onClick={() => this.editDoctor(el.id)}>Изменить
-                            </button>
+                            {Cookies.get('isAdmin') === 'true' &&
+                            <button className="doctor-name-list"
+                                    onClick={() => this.deleteDoctor(el.id)}>Удалить</button>}
+                            {Cookies.get('isAdmin') === 'true' &&
+                            <button className="doctor-name-list"
+                                    onClick={() => this.editDoctor(el.id)}>Изменить</button>}
                         </div>
                     })}
                 </div>

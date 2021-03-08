@@ -1,5 +1,7 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const app = express();
+app.use(cookieParser());
 const {readHospitalData, readDoctorsData, writeHospitalData, writeDoctorsData, readReviews, writeReviews, readUsers, writeUsers} = require('./utils');
 const port = 4321;
 const hostname = 'localhost';
@@ -175,8 +177,7 @@ app.post('/login', async (request, response) => {
 
     const user = users.find(el => el.login === userData.login && el.password === el.password);
     if (user) {
-        response.cookie('isAdmin', user.isAdmin);
-        response.status(200).json({success: true})
+        response.status(200).json({success: true, isAdmin: user.isAdmin})
     } else {
         response.status(200).json({success: false})
     }

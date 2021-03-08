@@ -127,7 +127,7 @@ const loginUser = async ({login, password}) => {
         body: JSON.stringify({login, password}),
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
     });
     return await response.json();
 };
