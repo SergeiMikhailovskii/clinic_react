@@ -1,9 +1,10 @@
-import React, {Fragment, PureComponent} from "react";
+import React, {PureComponent} from "react";
 import {GoogleApiWrapper, Map} from "google-maps-react";
 import {addReview, getReviews} from "../../models/AppModel";
 import {compose} from "redux";
 import {connect} from "react-redux";
 import {downloadReviewsAction} from "../../store/actions";
+import "./About.css";
 
 class About extends PureComponent {
 
@@ -29,11 +30,20 @@ class About extends PureComponent {
         const {reviews} = this.props;
 
         return (
-            <Fragment>
-                <h1>УЗ «21-я центральная районная поликлиника Заводского района г. Минска»</h1>
-                <h3>Address: vulica Filatava 13, Minsk 220026</h3>
-                <h3>Phone: 8 017 345-92-77</h3>
-                <br/>
+            <div style={{background: '#c4edff'}}>
+                <div className="header">
+                    <img width='150px' height='130px' src={"logo.png"}/>
+                    <div style={{margin: 16}}>
+                        <h1>УЗ «21-я центральная районная поликлиника Заводского района г. Минска»</h1>
+                        <ul><h5>Телефон для справок:</h5></ul>
+                        <li style={{color: '#ff0000'}}>8 017 345-92-77</li>
+                        <h5>Платные услуги:</h5>
+                        <li style={{color: '#ff0000'}}>8 017 345-92-77</li>
+                        <h5>Вызов врача на дом</h5>
+                        <li style={{color: '#ff0000'}}>8 017 345-92-77</li>
+                    </div>
+                </div>
+                <div className="img-div"/>
                 <input placeholder={"Оставьте отзыв"} onChange={this.onReviewChange}/>
                 <button onClick={this.saveReview}>Save</button>
                 <br/>
@@ -48,7 +58,7 @@ class About extends PureComponent {
                 <Map
                     google={this.props.google}
                     zoom={18}
-                    style={{width: "100%", height: "50%"}}
+                    style={{width: "100%"}}
                     initialCenter={
                         {
                             lat: 53.8692218,
@@ -56,7 +66,7 @@ class About extends PureComponent {
                         }
                     }
                 />
-            </Fragment>
+            </div>
         )
     }
 }

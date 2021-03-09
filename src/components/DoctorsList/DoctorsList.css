@@ -10,3 +10,6 @@
 .doctor-name-list {
     display: inline-block;
 }
+body {
+    background: #fff;
+}
