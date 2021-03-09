@@ -1,6 +1,7 @@
 import React, {PureComponent} from "react";
 import {loginUser, registerUser} from "../../models/AppModel";
-import Cookies from "js-cookie"
+import Cookies from "js-cookie";
+import './Login.css';
 
 class Login extends PureComponent {
 
@@ -41,17 +42,33 @@ class Login extends PureComponent {
     };
 
     render() {
-        return <div style={{
-            position: 'absolute',
-            left: '50%',
-            top: '50%',
-            transform: 'translate(-50%, -50%)',
-            flexDirection: 'column'
-        }}>
-            <input placeholder="Login" style={{margin: '16px'}} onChange={this.onLoginChange}/>
-            <input placeholder="Password" style={{margin: '16px'}} onChange={this.onPasswordChange}/>
-            <button style={{margin: '16px'}} onClick={this.onLoginClick}>Login</button>
-            <button style={{margin: '16px'}} onClick={this.onRegisterClick}>Register</button>
+        return <div className="container">
+            <div className="input-group mb-2 input-login" style={{width: '40%'}}>
+                <div className="input-group-prepend">
+                    <div className="input-group-text">@</div>
+                </div>
+                <input type="text" className="form-control" id="inlineFormInputGroup"
+                       placeholder="Login" onChange={this.onLoginChange}/>
+            </div>
+            <div className="input-group mb-2 input-login" style={{width: '40%'}}>
+                <div className="input-group-prepend">
+                    <div className="input-group-text">#</div>
+                </div>
+                <input type="password" className="form-control" id="inlineFormInputGroup"
+                       placeholder="Password" onChange={this.onPasswordChange}/>
+            </div>
+            <br/>
+            <div className="input-login" style={{width: '40%'}}>
+                <button type="button" className="btn btn-warning login-button" style={{background: '#fbceb5'}}
+                        onClick={this.onLoginClick}>Login
+                </button>
+            </div>
+            <br/>
+            <div className="input-login" style={{width: '40%'}}>
+                <button type="button" className="btn btn-warning reg-button" style={{background: '#fff'}}
+                        onClick={this.onRegisterClick}>Register
+                </button>
+            </div>
         </div>
     }
 }

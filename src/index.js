@@ -7,6 +7,7 @@ import Schedule from "./components/Schedule/Schedule";
 import About from "./components/About/About";
 import Login from "./components/Login/Login";
 import DoctorsList from "./components/DoctorsList/DoctorsList";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
     <React.StrictMode>
