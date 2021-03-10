@@ -164,7 +164,7 @@ app.post('/register', async (request, response) => {
             return;
         }
         userData.id = users[users.length - 1].id + 1;
-        userData.role = false
+        userData.isAdmin = false
     }
     users.push(userData);
     await writeUsers(users);

@@ -44,32 +44,34 @@ class Login extends PureComponent {
     };
 
     render() {
-        return <div className="container">
-            <div className="input-group mb-2 input-login" style={{width: '40%'}}>
-                <div className="input-group-prepend">
-                    <div className="input-group-text">@</div>
+        return <div className="container-login">
+            <div className="btns">
+                <div className="input-group mb-2 input-login">
+                    <div className="input-group-prepend">
+                        <div className="input-group-text">@</div>
+                    </div>
+                    <input type="text" className="form-control" id="inlineFormInputGroup"
+                           placeholder="Login" onChange={this.onLoginChange}/>
                 </div>
-                <input type="text" className="form-control" id="inlineFormInputGroup"
-                       placeholder="Login" onChange={this.onLoginChange}/>
-            </div>
-            <div className="input-group mb-2 input-login" style={{width: '40%'}}>
-                <div className="input-group-prepend">
-                    <div className="input-group-text">#</div>
+                <div className="input-group mb-2 input-login">
+                    <div className="input-group-prepend">
+                        <div className="input-group-text">#</div>
+                    </div>
+                    <input type="password" className="form-control" id="inlineFormInputGroup"
+                           placeholder="Password" onChange={this.onPasswordChange}/>
                 </div>
-                <input type="password" className="form-control" id="inlineFormInputGroup"
-                       placeholder="Password" onChange={this.onPasswordChange}/>
-            </div>
-            <br/>
-            <div className="input-login" style={{width: '40%'}}>
-                <button type="button" className="btn btn-warning login-button" style={{background: '#fbceb5'}}
-                        onClick={this.onLoginClick}>Login
-                </button>
-            </div>
-            <br/>
-            <div className="input-login" style={{width: '40%'}}>
-                <button type="button" className="btn btn-warning reg-button" style={{background: '#fff'}}
-                        onClick={this.onRegisterClick}>Register
-                </button>
+                <br/>
+                <div className="input-login">
+                    <button type="button" className="btn btn-warning login-button" style={{background: '#fbceb5'}}
+                            onClick={this.onLoginClick}>Login
+                    </button>
+                </div>
+                <br/>
+                <div className="input-login">
+                    <button type="button" className="btn btn-warning reg-button" style={{background: '#fff'}}
+                            onClick={this.onRegisterClick}>Register
+                    </button>
+                </div>
             </div>
         </div>
     }
