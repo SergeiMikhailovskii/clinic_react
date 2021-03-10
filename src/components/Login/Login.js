@@ -22,10 +22,11 @@ class Login extends PureComponent {
         });
     };
 
-    onLoginClick = async () => {
-        const response = await loginUser({login: this.state.login, password: this.state.password});
+    onLoginClick = async (login, password) => {
+        const response = await loginUser({login, password});
         if (response.success === true) {
-            Cookies.set('isAdmin', response.isAdmin);
+            // Cookies.set('isAdmin', response.isAdmin);
+            handleResponseCookies(response.isAdmin);
             this.props.history.push("/main");
         } else {
             alert("User not found")
@@ -62,8 +63,9 @@ class Login extends PureComponent {
                 </div>
                 <br/>
                 <div className="input-login">
-                    <button type="button" className="btn btn-warning login-button" style={{background: '#fbceb5'}}
-                            onClick={this.onLoginClick}>Login
+                    <button type="button" className="btn btn-warning login-button"
+                            style={{background: '#fbceb5'}}
+                            onClick={() => this.onLoginClick(this.state.login, this.state.password)}>Login
                     </button>
                 </div>
                 <br/>
@@ -75,6 +77,11 @@ class Login extends PureComponent {
             </div>
         </div>
     }
+}
+
+export function handleResponseCookies(isAdmin) {
+    Cookies.set('isAdmin', isAdmin);
+    return Cookies.get('isAdmin')
 }
 
 export default Login

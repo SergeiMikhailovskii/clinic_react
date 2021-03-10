@@ -175,6 +175,11 @@ app.post('/login', async (request, response) => {
     const userData = request.body;
     users = await readUsers();
 
+    if (!userData.login || !userData.password) {
+        response.status(200).json({success: false});
+        return;
+    }
+
     const user = users.find(el => el.login === userData.login && el.password === el.password);
     if (user) {
         response.status(200).json({success: true, isAdmin: user.isAdmin})
