@@ -53,7 +53,7 @@ class DoctorsList extends PureComponent {
         const {doctors} = this.props;
         return (
             <Fragment>
-                <button onClick={this.onAddDoctorClick}>Добавить врача</button>
+                {Cookies.get('isAdmin') === 'true' && <button onClick={this.onAddDoctorClick}>Добавить врача</button>}
                 <div style={{backgroundColor: 'rgba(256, 0, 0, 0.2)', marginTop: '20px', marginLeft: '20px'}}>
                     {doctors.map(el => {
                         return <div style={{marginBottom: '25px'}}>

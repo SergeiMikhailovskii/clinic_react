@@ -10,6 +10,9 @@
 .doctor-name-list {
     display: inline-block;
 }
-body {
+#root {
     background: #fff;
 }
+/*body {*/
+/*    background: #fff;*/
+/*}*/

@@ -37,6 +37,8 @@ class Login extends PureComponent {
         if (response.error && response.error === true) {
             alert("Such user exists!")
         } else {
+            Cookies.set('isAdmin', false);
+            console.log(Cookies.get('isAdmin'));
             this.props.history.push("/main")
         }
     };
