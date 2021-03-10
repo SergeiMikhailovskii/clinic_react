@@ -6,6 +6,7 @@
     display: inline-block;
     width: 100px;
     height: 100px;
+    border-radius: 50%;
 }
 .doctor-name-list {
     display: inline-block;

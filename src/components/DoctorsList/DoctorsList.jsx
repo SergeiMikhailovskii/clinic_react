@@ -59,7 +59,7 @@ class DoctorsList extends PureComponent {
                         return <div style={{marginBottom: '25px'}}>
                             <Link exact to={"/schedule/" + el.id}>
                                 <div>
-                                    <img src={el.doctorPhoto} width='100px' height='100px'
+                                    <img src={el.doctorPhoto} width='100px' height='100px' alt="Avatar"
                                          className="doctor-photo-list"/>
                                     <div className="doctor-name-list">
                                         <p>{el.doctorName}</p>

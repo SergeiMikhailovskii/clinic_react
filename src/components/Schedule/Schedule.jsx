@@ -7,6 +7,7 @@ import './Schedule.css';
 import withRouter from "react-router-dom/es/withRouter";
 import {compose} from "redux";
 import {Link} from "react-router-dom";
+import Cookies from "js-cookie";
 
 function makeInitnotesFromHourBounds(leftBound, rightBound) {
     const N = (rightBound - leftBound) * 60 / 20 + 1;
@@ -46,8 +47,8 @@ class Schedule extends PureComponent {
 
     createDay = async () => {
         if (this.state.dateInputValue && this.state.changeInputValue) {
-            let bound = [];
-            let change = '';
+            let bound;
+            let change;
             if (this.state.changeInputValue === 'day') {
                 bound = [8, 14];
                 change = 'Первая смена';
@@ -120,7 +121,8 @@ class Schedule extends PureComponent {
                                 />
                             ))}
                             <div className="element-container">
-                                <div className="card card-add-list-container">
+                                {Cookies.get('isAdmin') === true &&
+                                    <div className="card card-add-list-container">
                                     {!isInputShown && (
                                         <span id="add-list-button"
                                               className="card-add-list-button"
@@ -133,13 +135,13 @@ class Schedule extends PureComponent {
                                         <Fragment>
                                             <label htmlFor="add-list-input-date">Введите дату: </label>
                                             <input
+                                                min="2021-04-11"
                                                 type="date"
                                                 id="add-list-input-date"
                                                 className="card-add-list-input"
                                                 value={dateInputValue}
                                                 onChange={this.onDateInputChange}
-                                                onKeyDown={this.onKeyDown}
-                                            />
+                                                onKeyDown={this.onKeyDown}/>
 
                                             <label htmlFor="add-list-input-change">Выберите смену: </label>
                                             <select
@@ -161,7 +163,7 @@ class Schedule extends PureComponent {
                                             </span>
                                         </Fragment>
                                     )}
-                                </div>
+                                </div>}
                             </div>
                         </div>
                     </main>

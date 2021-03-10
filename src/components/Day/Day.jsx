@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {removeDay as removeDayServer} from '../../models/AppModel';
 import {removeNotelistAction} from '../../store/actions';
 import Note from '../Note/Note';
+import Cookies from "js-cookie";
 
 const Day = ({
                  dayDate,
@@ -35,24 +36,26 @@ const Day = ({
     return (
         <div className="element-container">
             <div className="card">
+                {Cookies.get('isAdmin') === 'true' &&
                 <span className="card-task-icon card-task-icon-delete card-task-icon-remove-daylist"
                       onClick={() => removeNotelist(id)}
-                />
+                />}
 
                 <div className="card-header">
                     {dayDate} | {dayChange}
                 </div>
                 <div className="card-patients-container">
-                    {notes.map((note, index) => (
-                        <Note
-                            noteName={note.noteName}
-                            noteTime={note.noteTime}
-                            noteId={index}
-                            dayId={dayId}
-                            id={id}
-                            key={`list${dayId}-note${index}`}
-                        />
-                    ))}
+                    {notes.map((note, index) => {
+                            if (Cookies.get('isAdmin') === 'true' || (Cookies.get('isAdmin') === 'false' && note.noteName==="")) return <Note
+                                noteName={note.noteName}
+                                noteTime={note.noteTime}
+                                noteId={index}
+                                dayId={dayId}
+                                id={id}
+                                key={`list${dayId}-note${index}`}
+                            />
+                        }
+                    )}
                 </div>
             </div>
         </div>
