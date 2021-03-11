@@ -44,6 +44,12 @@ class About extends PureComponent {
                         <h5>Вызов врача на дом</h5>
                         <li style={{color: '#ff0000'}}><a href="tel:8-017-345-92-77" style={{color: '#ff0000'}}>8 017
                             345-92-77</a></li>
+                        <h5>Почта</h5>
+                        <li style={{color: '#ff0000'}}>
+                            <a href="mailto: mikhailovskii.s@tut.by?subject=Вопрос по работе поликлиники"
+                               style={{color: '#ff0000'}}>
+                                mikhailovskii.s@tut.by
+                            </a></li>
                     </div>
                 </div>
                 <div className="img-div"/>
@@ -52,9 +58,9 @@ class About extends PureComponent {
                 <br/>
                 {reviews && <div>
                     <br/>
-                    <h3>Отзывы</h3>
+                    <h3 className="list-group-item list-group-item-action active">Отзывы</h3>
                     {reviews.map(el => {
-                        return <h5>{el.review}</h5>
+                        return <h5 className="list-group-item list-group-item-warning">{el.review}</h5>
                     })}
                 </div>}
                 <br/>
