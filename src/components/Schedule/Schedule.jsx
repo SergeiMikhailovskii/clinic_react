@@ -141,7 +141,7 @@ class Schedule extends PureComponent {
                                                 className="card-add-list-input"
                                                 value={dateInputValue}
                                                 onChange={this.onDateInputChange}
-                                                onKeyDown={this.onKeyDown}/>
+                                                onKeyDown={(e) => e.preventDefault()}/>
 
                                             <label htmlFor="add-list-input-change">Выберите смену: </label>
                                             <select

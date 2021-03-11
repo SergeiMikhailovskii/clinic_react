@@ -53,10 +53,12 @@ class DoctorsList extends PureComponent {
         const {doctors} = this.props;
         return (
             <Fragment>
-                {Cookies.get('isAdmin') === 'true' && <button onClick={this.onAddDoctorClick}>Добавить врача</button>}
-                <div style={{backgroundColor: 'rgba(256, 0, 0, 0.2)', marginTop: '20px', marginLeft: '20px'}}>
+                {Cookies.get('isAdmin') === 'true' &&
+                <button className="btn btn-primary btn-lg btn-block" onClick={this.onAddDoctorClick}>Добавить
+                    врача</button>}
+                <div className="list-group" style={{marginTop: '20px', marginLeft: '20px'}}>
                     {doctors.map(el => {
-                        return <div style={{marginBottom: '25px'}}>
+                        return <div className="list-group-item list-group-item-primary" style={{marginBottom: '25px'}}>
                             <Link exact to={"/schedule/" + el.id}>
                                 <div>
                                     <img src={el.doctorPhoto} width='100px' height='100px' alt="Avatar"
@@ -68,10 +70,10 @@ class DoctorsList extends PureComponent {
                                 </div>
                             </Link>
                             {Cookies.get('isAdmin') === 'true' &&
-                            <button className="doctor-name-list"
+                            <button className="btn btn-primary btn-lg"
                                     onClick={() => this.deleteDoctor(el.id)}>Удалить</button>}
                             {Cookies.get('isAdmin') === 'true' &&
-                            <button className="doctor-name-list"
+                            <button className="btn btn-secondary btn-lg"
                                     onClick={() => this.editDoctor(el.id)}>Изменить</button>}
                         </div>
                     })}

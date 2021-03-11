@@ -9,6 +9,7 @@
     border-radius: 50%;
 }
 .doctor-name-list {
+    margin-left: 20px;
     display: inline-block;
 }
 #root {

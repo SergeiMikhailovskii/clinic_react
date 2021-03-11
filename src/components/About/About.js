@@ -52,7 +52,7 @@ class About extends PureComponent {
                 <br/>
                 {reviews && <div>
                     <br/>
-                    <h3>Reviews</h3>
+                    <h3>Отзывы</h3>
                     {reviews.map(el => {
                         return <h5>{el.review}</h5>
                     })}
