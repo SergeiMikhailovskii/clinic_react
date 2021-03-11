@@ -36,11 +36,14 @@ class About extends PureComponent {
                     <div style={{margin: 16}}>
                         <h1>УЗ «21-я центральная районная поликлиника Заводского района г. Минска»</h1>
                         <ul><h5>Телефон для справок:</h5></ul>
-                        <li style={{color: '#ff0000'}}>8 017 345-92-77</li>
+                        <li style={{color: '#ff0000'}}><a href="tel:8-017-345-92-77" style={{color: '#ff0000'}}>8 017
+                            345-92-77</a></li>
                         <h5>Платные услуги:</h5>
-                        <li style={{color: '#ff0000'}}>8 017 345-92-77</li>
+                        <li style={{color: '#ff0000'}}><a href="tel:8-017-345-92-77" style={{color: '#ff0000'}}>8 017
+                            345-92-77</a></li>
                         <h5>Вызов врача на дом</h5>
-                        <li style={{color: '#ff0000'}}>8 017 345-92-77</li>
+                        <li style={{color: '#ff0000'}}><a href="tel:8-017-345-92-77" style={{color: '#ff0000'}}>8 017
+                            345-92-77</a></li>
                     </div>
                 </div>
                 <div className="img-div"/>
