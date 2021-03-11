@@ -121,8 +121,8 @@ class Schedule extends PureComponent {
                                 />
                             ))}
                             <div className="element-container">
-                                {Cookies.get('isAdmin') === true &&
-                                    <div className="card card-add-list-container">
+                                {Cookies.get('isAdmin') === "true" &&
+                                <div className="card card-add-list-container">
                                     {!isInputShown && (
                                         <span id="add-list-button"
                                               className="card-add-list-button"

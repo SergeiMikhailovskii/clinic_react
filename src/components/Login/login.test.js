@@ -14,6 +14,8 @@ test('test2', () => {
 });
 
 test('test3', () => {
-    const cookie = handleResponseCookies(true);
-    return expect(cookie).toMatch("true");
+    return loginUser({login: 'admin', password: 'admin'}).then(data => {
+        const cookie = handleResponseCookies(data.isAdmin);
+        return expect(cookie).toMatch("true");
+    });
 });
